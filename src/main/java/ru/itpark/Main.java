@@ -1,6 +1,6 @@
 package ru.itpark;
 
-import ru.itpark.domain.Client;
+import ru.itpark.repository.ClientRepository;
 
 public class Main {
     public static void main(String[] args) {
@@ -37,35 +37,35 @@ public class Main {
 //                )
 //        );
 
-        repository.add(
-                new Client(
-                        2,
-                        "Masha",
-                        1991,
-                        "89991111111",
-                        "aaaaa@gmail.com"
-                )
-        );
-
-        repository.add(
-                new Client(
-                        3,
-                        "Olga",
-                        1970,
-                        "89602222222",
-                        "bbbbb@gmail.com"
-                )
-        );
-
-        repository.add(
-                new Client(
-                        4,
-                        "Ruslan",
-                        2000,
-                        "89997777777",
-                        "7abc7@gmail.com"
-                )
-        );
+//        repository.add(
+//                new Client(
+//                        2,
+//                        "Masha",
+//                        1991,
+//                        "89991111111",
+//                        "aaaaa@gmail.com"
+//                )
+//        );
+//
+//        repository.add(
+//                new Client(
+//                        3,
+//                        "Olga",
+//                        1970,
+//                        "89602222222",
+//                        "bbbbb@gmail.com"
+//                )
+//        );
+//
+//        repository.add(
+//                new Client(
+//                        4,
+//                        "Ruslan",
+//                        2000,
+//                        "89997777777",
+//                        "7abc7@gmail.com"
+//                )
+//        );
 
 
         System.out.println(repository.sortByDataASC());

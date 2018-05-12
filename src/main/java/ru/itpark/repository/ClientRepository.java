@@ -1,4 +1,4 @@
-package ru.itpark;
+package ru.itpark.repository;
 
 import ru.itpark.domain.Client;
 
