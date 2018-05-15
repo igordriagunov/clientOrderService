@@ -1,27 +1,28 @@
 package ru.itpark.service;
 
 import ru.itpark.domain.Client;
-import ru.itpark.repository.OrderRepository;
+import ru.itpark.repository.ClientRepository;
 
-import javax.xml.ws.ServiceMode;
 import java.util.List;
 
 
 public class ClientService {
 
-    private final OrderRepository orderRepository;
+    private final ClientRepository clientRepository;
 
-    public ClientService(OrderRepository orderRepository) {
-        this.orderRepository = orderRepository;
-    }
-
-    public List<Client> sortByYearASC() {
-        return orderRepository.sortByYearASC();
+    public ClientService(ClientRepository clientRepository) {
+        this.clientRepository = clientRepository;
     }
 
     public Client add(Client client) {
-        return orderRepository.add(client);
+        return clientRepository.add(client);
     }
+
+    public List<Client> sortByYearASC() {
+        return clientRepository.sortByYearASC();
+    }
+
+
 
 
 }

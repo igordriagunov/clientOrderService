@@ -7,11 +7,11 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class OrderRepository {
+public class ClientRepository {
 
     private String url;
 
-    public OrderRepository(String url) {
+    public ClientRepository(String url) {
         this.url = url;
         clientInit();
         orderInit();
@@ -78,7 +78,7 @@ public class OrderRepository {
             try (Statement statement = connection.createStatement()) {
 
                 ResultSet resultSet =
-                        statement.executeQuery("SELECT id,name,year,phoneNumber,eMail FROM clients ORDER BY data ASC ");
+                        statement.executeQuery("SELECT id,name,year,phoneNumber,eMail FROM clients ORDER BY year ASC ");
 
                 while (resultSet.next()) {
 
@@ -108,7 +108,7 @@ public class OrderRepository {
             try (Statement statement = connection.createStatement()) {
 
                 ResultSet resultSet =
-                        statement.executeQuery("SELECT id,name,year,phoneNumber,eMail FROM clients ORDER BY data DESC ");
+                        statement.executeQuery("SELECT id,name,year,phoneNumber,eMail FROM clients ORDER BY year DESC ");
 
                 while (resultSet.next()) {
 

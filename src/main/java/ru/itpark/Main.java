@@ -1,11 +1,11 @@
 package ru.itpark;
 
-import ru.itpark.repository.OrderRepository;
+import ru.itpark.repository.ClientRepository;
 
 public class Main {
     public static void main(String[] args) {
 
-        OrderRepository repository = new OrderRepository("jdbc:sqlite:db.sqlite3");
+        ClientRepository repository = new ClientRepository("jdbc:sqlite:db.sqlite3");
 
 //        repository.add(
 //                new Client(
@@ -60,7 +60,7 @@ public class Main {
 //        repository.add(
 //                new Client(
 //                        4,
-//                        "Ruslan",
+//                        "Руслан",
 //                        2000,
 //                        "89997777777",
 //                        "7abc7@gmail.com"

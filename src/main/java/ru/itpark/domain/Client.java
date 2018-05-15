@@ -1,5 +1,7 @@
 package ru.itpark.domain;
 
+import java.util.Objects;
+
 public class Client {
 
     private int id;
@@ -54,5 +56,34 @@ public class Client {
 
     public void seteMail(String eMail) {
         this.eMail = eMail;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Client client = (Client) o;
+        return id == client.id &&
+                year == client.year &&
+                Objects.equals(name, client.name) &&
+                Objects.equals(phoneNumber, client.phoneNumber) &&
+                Objects.equals(eMail, client.eMail);
+    }
+
+    @Override
+    public int hashCode() {
+
+        return Objects.hash(id, name, year, phoneNumber, eMail);
+    }
+
+    @Override
+    public String toString() {
+        return "Client{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", year=" + year +
+                ", phoneNumber='" + phoneNumber + '\'' +
+                ", eMail='" + eMail + '\'' +
+                '}';
     }
 }
