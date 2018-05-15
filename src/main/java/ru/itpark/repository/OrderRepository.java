@@ -7,16 +7,17 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ClientRepository {
+public class OrderRepository {
 
     private String url;
 
-    public ClientRepository(String url) {
+    public OrderRepository(String url) {
         this.url = url;
-        init();
+        clientInit();
+        orderInit();
     }
 
-    public void init() {
+    public void clientInit() {
 
         try (Connection connection = DriverManager.getConnection(url)) {
             try (Statement statement =
@@ -25,8 +26,8 @@ public class ClientRepository {
                 statement.execute("CREATE TABLE IF NOT EXISTS clients (\n" +
                         "id INTEGER PRIMARY KEY AUTOINCREMENT ,\n" +
                         "name TEXT NOT NULL ,\n" +
-                        "data INTEGER NOT NULL ,\n" +
-                        "phoneNumber INTEGER NOT NULL ,\n" +
+                        "year INTEGER NOT NULL ,\n" +
+                        "phoneNumber TEXT NOT NULL ,\n" +
                         "eMail TEXT NOT NULL\n" +
                         ");");
             }
@@ -35,13 +36,13 @@ public class ClientRepository {
         }
     }
 
-    public void add(Client client) {
+    public Client add(Client client) {
         try (Connection connection = DriverManager.getConnection(url)) {
-            try (PreparedStatement statement = connection.prepareStatement("INSERT INTO clients(id, name, data, phoneNumber, eMail) VALUES (?,?,?,?,?);")) {
+            try (PreparedStatement statement = connection.prepareStatement("INSERT INTO clients(id, name, year, phoneNumber, eMail) VALUES (?,?,?,?,?);")) {
 
                 statement.setInt(1, client.getId());
                 statement.setString(2, client.getName());
-                statement.setInt(3, client.getData());
+                statement.setInt(3, client.getYear());
                 statement.setString(4, client.getPhoneNumber());
                 statement.setString(5, client.geteMail());
 
@@ -50,13 +51,14 @@ public class ClientRepository {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+        return client;
     }
 
     public void update(Client client) {
         try (Connection connection = DriverManager.getConnection(url)) {
-            try (PreparedStatement statement = connection.prepareStatement("UPDATE clients SET name=?, data=?,phoneNumber=?,eMail=? WHERE id=?;")) {
+            try (PreparedStatement statement = connection.prepareStatement("UPDATE clients SET name=?, year=?, phoneNumber=?, eMail=? WHERE id=?;")) {
                 statement.setString(1, client.getName());
-                statement.setInt(2, client.getData());
+                statement.setInt(2, client.getYear());
                 statement.setString(3, client.getPhoneNumber());
                 statement.setString(4, client.geteMail());
                 statement.setInt(5, client.getId());
@@ -69,14 +71,14 @@ public class ClientRepository {
         }
     }
 
-    public List<Client> sortByDataASC() {
+    public List<Client> sortByYearASC() {
         List<Client> clients = new ArrayList<>();
 
         try (Connection connection = DriverManager.getConnection(url)) {
             try (Statement statement = connection.createStatement()) {
 
                 ResultSet resultSet =
-                        statement.executeQuery("SELECT id,name,data,phoneNumber,eMail FROM clients ORDER BY data ASC ");
+                        statement.executeQuery("SELECT id,name,year,phoneNumber,eMail FROM clients ORDER BY data ASC ");
 
                 while (resultSet.next()) {
 
@@ -84,7 +86,7 @@ public class ClientRepository {
                             new Client(
                                     resultSet.getInt("id"),
                                     resultSet.getString("name"),
-                                    resultSet.getInt("data"),
+                                    resultSet.getInt("year"),
                                     resultSet.getString("phoneNumber"),
                                     resultSet.getString("eMail")
 
@@ -99,14 +101,14 @@ public class ClientRepository {
     }
 
 
-    public List<Client> sortByDataDESC() {
+    public List<Client> sortByYearDESC() {
         List<Client> clients = new ArrayList<>();
 
         try (Connection connection = DriverManager.getConnection(url)) {
             try (Statement statement = connection.createStatement()) {
 
                 ResultSet resultSet =
-                        statement.executeQuery("SELECT id,name,data,phoneNumber,eMail FROM clients ORDER BY data DESC ");
+                        statement.executeQuery("SELECT id,name,year,phoneNumber,eMail FROM clients ORDER BY data DESC ");
 
                 while (resultSet.next()) {
 
@@ -114,7 +116,7 @@ public class ClientRepository {
                             new Client(
                                     resultSet.getInt("id"),
                                     resultSet.getString("name"),
-                                    resultSet.getInt("data"),
+                                    resultSet.getInt("year"),
                                     resultSet.getString("phoneNumber"),
                                     resultSet.getString("eMail")
 
@@ -128,5 +130,26 @@ public class ClientRepository {
         return clients;
     }
 
+//     TODO: Order repository
+
+
+    public void orderInit() {
+
+        try (Connection connection = DriverManager.getConnection(url)) {
+            try (Statement statement =
+                         connection.createStatement()) {
+
+                statement.execute("CREATE TABLE IF NOT EXISTS orders (\n" +
+                        "id INTEGER PRIMARY KEY AUTOINCREMENT,\n" +
+                        "orderDate TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL  ,\n" +
+                        "orderSum INTEGER NOT NULL ,\n" +
+                        "status TEXT NOT NULL,\n" +
+                        "total INTEGER CHECK (total >=0) DEFAULT 0\n" +
+                        ");");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
 
 }

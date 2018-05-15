@@ -4,14 +4,14 @@ public class Client {
 
     private int id;
     private String name;
-    private int data;
+    private int year;
     private String phoneNumber;
     private String eMail;
 
-    public Client(int id, String name, int data, String phoneNumber, String eMail) {
+    public Client(int id, String name, int year, String phoneNumber, String eMail) {
         this.id = id;
         this.name = name;
-        this.data = data;
+        this.year = year;
         this.phoneNumber = phoneNumber;
         this.eMail = eMail;
     }
@@ -32,12 +32,12 @@ public class Client {
         this.name = name;
     }
 
-    public int getData() {
-        return data;
+    public int getYear() {
+        return year;
     }
 
-    public void setData(int data) {
-        this.data = data;
+    public void setYear(int year) {
+        this.year = year;
     }
 
     public String getPhoneNumber() {
@@ -53,18 +53,6 @@ public class Client {
     }
 
     public void seteMail(String eMail) {
-
         this.eMail = eMail;
-    }
-
-    @Override
-    public String toString() {
-        return "Client{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", data=" + data +
-                ", phoneNumber='" + phoneNumber + '\'' +
-                ", eMail='" + eMail + '\'' +
-                '}';
     }
 }

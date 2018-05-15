@@ -1,11 +1,11 @@
 package ru.itpark;
 
-import ru.itpark.repository.ClientRepository;
+import ru.itpark.repository.OrderRepository;
 
 public class Main {
     public static void main(String[] args) {
 
-        ClientRepository repository = new ClientRepository("jdbc:sqlite:db.sqlite3");
+        OrderRepository repository = new OrderRepository("jdbc:sqlite:db.sqlite3");
 
 //        repository.add(
 //                new Client(
@@ -68,8 +68,8 @@ public class Main {
 //        );
 
 
-        System.out.println(repository.sortByDataASC());
-        System.out.println(repository.sortByDataDESC());
+        System.out.println(repository.sortByYearASC());
+        System.out.println(repository.sortByYearDESC());
 
 
     }

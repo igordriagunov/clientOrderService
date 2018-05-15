@@ -4,23 +4,19 @@ import java.util.GregorianCalendar;
 
 public class Order {
 
-    private String orderDate;
+    private final String orderDate = new java.util.Date().toString();
     private int orderSum;
     private String status;
-    public static int total;
+    private int total;
 
-    public Order(String orderDate, int orderSum, String status) {
-        this.orderDate = orderDate;
+    public Order(int orderSum, String status, int total) {
         this.orderSum = orderSum;
         this.status = status;
+        this.total = total;
     }
 
     public String getOrderDate() {
         return orderDate;
-    }
-
-    public void setOrderDate(String orderDate) {
-        this.orderDate = orderDate;
     }
 
     public int getOrderSum() {
@@ -39,11 +35,11 @@ public class Order {
         this.status = status;
     }
 
-    public static int getTotal() {
+    public int getTotal() {
         return total;
     }
 
-    public static void setTotal(int total) {
-        Order.total = total;
+    public void setTotal(int total) {
+        this.total = total;
     }
 }
