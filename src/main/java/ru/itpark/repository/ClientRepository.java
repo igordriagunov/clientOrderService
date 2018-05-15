@@ -14,7 +14,7 @@ public class ClientRepository {
     public ClientRepository(String url) {
         this.url = url;
         clientInit();
-        orderInit();
+//        orderInit();
     }
 
     public void clientInit() {
@@ -69,6 +69,33 @@ public class ClientRepository {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+    }
+
+    public List<Client> findAll() {
+        List<Client> clients = new ArrayList<>();
+
+        try (Connection connection = DriverManager.getConnection(url)) {
+            try (Statement statement = connection.createStatement()) {
+
+                ResultSet resultSet = statement.executeQuery("SELECT id, name, year, phoneNumber, eMail FROM clients");
+
+                while (resultSet.next()) {
+
+                    clients.add(
+                            new Client(
+                                    resultSet.getInt("id"),
+                                    resultSet.getString("name"),
+                                    resultSet.getInt("year"),
+                                    resultSet.getString("phoneNumber"),
+                                    resultSet.getString("eMail")
+                            )
+                    );
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return clients;
     }
 
     public List<Client> sortByYearASC() {
@@ -132,24 +159,24 @@ public class ClientRepository {
 
 //     TODO: Order repository
 
-
-    public void orderInit() {
-
-        try (Connection connection = DriverManager.getConnection(url)) {
-            try (Statement statement =
-                         connection.createStatement()) {
-
-                statement.execute("CREATE TABLE IF NOT EXISTS orders (\n" +
-                        "id INTEGER PRIMARY KEY AUTOINCREMENT,\n" +
-                        "orderDate TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL  ,\n" +
-                        "orderSum INTEGER NOT NULL ,\n" +
-                        "status TEXT NOT NULL,\n" +
-                        "total INTEGER CHECK (total >=0) DEFAULT 0\n" +
-                        ");");
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
+//
+//    public void orderInit() {
+//
+//        try (Connection connection = DriverManager.getConnection(url)) {
+//            try (Statement statement =
+//                         connection.createStatement()) {
+//
+//                statement.execute("CREATE TABLE IF NOT EXISTS orders (\n" +
+//                        "id INTEGER PRIMARY KEY AUTOINCREMENT,\n" +
+//                        "orderDate TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL  ,\n" +
+//                        "orderSum INTEGER NOT NULL ,\n" +
+//                        "status TEXT NOT NULL,\n" +
+//                        "total INTEGER CHECK (total >=0) DEFAULT 0\n" +
+//                        ");");
+//            }
+//        } catch (SQLException e) {
+//            e.printStackTrace();
+//        }
+//    }
 
 }

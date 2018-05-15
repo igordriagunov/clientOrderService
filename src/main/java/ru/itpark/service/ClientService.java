@@ -18,12 +18,21 @@ public class ClientService {
         return clientRepository.add(client);
     }
 
+    public void update(Client client) {
+        clientRepository.update(client);
+    }
+
+    public List<Client> findAll() {
+        return clientRepository.findAll();
+    }
+
     public List<Client> sortByYearASC() {
         return clientRepository.sortByYearASC();
     }
 
-
-
-
+    public List<Client> sortByYearDESC() {
+        return clientRepository.sortByYearASC();
+    }
 }
+
 

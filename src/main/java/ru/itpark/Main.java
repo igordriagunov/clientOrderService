@@ -1,6 +1,8 @@
 package ru.itpark;
 
+import ru.itpark.domain.Client;
 import ru.itpark.repository.ClientRepository;
+import ru.itpark.service.ClientService;
 
 public class Main {
     public static void main(String[] args) {
@@ -68,8 +70,11 @@ public class Main {
 //        );
 
 
-        System.out.println(repository.sortByYearASC());
+//        System.out.println(repository.sortByYearASC());
         System.out.println(repository.sortByYearDESC());
+        System.out.println(repository.findAll());
+
+
 
 
     }
