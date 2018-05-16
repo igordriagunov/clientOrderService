@@ -14,8 +14,8 @@ public class ClientService {
         this.clientRepository = clientRepository;
     }
 
-    public Client add(Client client) {
-        return clientRepository.add(client);
+    public void add(Client client) {
+        clientRepository.add(client);
     }
 
     public void update(Client client) {

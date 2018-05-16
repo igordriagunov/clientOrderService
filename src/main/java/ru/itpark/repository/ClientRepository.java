@@ -36,7 +36,7 @@ public class ClientRepository {
         }
     }
 
-    public Client add(Client client) {
+    public void add(Client client) {
         try (Connection connection = DriverManager.getConnection(url)) {
             try (PreparedStatement statement = connection.prepareStatement("INSERT INTO clients(id, name, year, phoneNumber, eMail) VALUES (?,?,?,?,?);")) {
 
@@ -51,7 +51,6 @@ public class ClientRepository {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return client;
     }
 
     public void update(Client client) {
