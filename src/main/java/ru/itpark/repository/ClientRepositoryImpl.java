@@ -7,7 +7,7 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ClientRepositoryImpl implements ClientRepository {
+public class ClientRepositoryImpl  {
 
     private String url;
 
@@ -36,10 +36,11 @@ public class ClientRepositoryImpl implements ClientRepository {
         }
     }
 
-    @Override
+
     public void add(Client client) {
         try (Connection connection = DriverManager.getConnection(url)) {
-            try (PreparedStatement statement = connection.prepareStatement("INSERT INTO clients(id, name, year, phoneNumber, eMail) VALUES (?,?,?,?,?);")) {
+            try (PreparedStatement statement = connection.prepareStatement(
+                    "INSERT INTO clients(id, name, year, phoneNumber, eMail) VALUES (?,?,?,?,?);")) {
 
                 statement.setInt(1, client.getId());
                 statement.setString(2, client.getName());
@@ -54,7 +55,6 @@ public class ClientRepositoryImpl implements ClientRepository {
         }
     }
 
-    @Override
     public void update(Client client) {
         try (Connection connection = DriverManager.getConnection(url)) {
             try (PreparedStatement statement = connection.prepareStatement("UPDATE clients SET name=?, year=?, phoneNumber=?, eMail=? WHERE id=?;")) {
@@ -72,7 +72,6 @@ public class ClientRepositoryImpl implements ClientRepository {
         }
     }
 
-    @Override
     public List<Client> findAll() {
         List<Client> clients = new ArrayList<>();
 
@@ -100,7 +99,6 @@ public class ClientRepositoryImpl implements ClientRepository {
         return clients;
     }
 
-    @Override
     public List<Client> sortByYearASC() {
         List<Client> clients = new ArrayList<>();
 
@@ -131,7 +129,6 @@ public class ClientRepositoryImpl implements ClientRepository {
     }
 
 
-    @Override
     public List<Client> sortByYearDESC() {
         List<Client> clients = new ArrayList<>();
 
@@ -161,26 +158,6 @@ public class ClientRepositoryImpl implements ClientRepository {
         return clients;
     }
 
-//     TODO: Order repository
-
-//
-//    public void orderInit() {
-//
-//        try (Connection connection = DriverManager.getConnection(url)) {
-//            try (Statement statement =
-//                         connection.createStatement()) {
-//
-//                statement.execute("CREATE TABLE IF NOT EXISTS orders (\n" +
-//                        "id INTEGER PRIMARY KEY AUTOINCREMENT,\n" +
-//                        "orderDate TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL  ,\n" +
-//                        "orderSum INTEGER NOT NULL ,\n" +
-//                        "status TEXT NOT NULL,\n" +
-//                        "total INTEGER CHECK (total >=0) DEFAULT 0\n" +
-//                        ");");
-//            }
-//        } catch (SQLException e) {
-//            e.printStackTrace();
-//        }
-//    }
+//     TODO: Buy repository
 
 }
