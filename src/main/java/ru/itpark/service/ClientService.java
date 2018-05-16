@@ -1,38 +1,17 @@
 package ru.itpark.service;
 
 import ru.itpark.domain.Client;
-import ru.itpark.repository.ClientRepository;
 
 import java.util.List;
 
+public interface ClientService {
+    void add(Client client);
 
-public class ClientService {
+    void update(Client client);
 
-    private final ClientRepository clientRepository;
+    List<Client> findAll();
 
-    public ClientService(ClientRepository clientRepository) {
-        this.clientRepository = clientRepository;
-    }
+    List<Client> sortByYearASC();
 
-    public void add(Client client) {
-        clientRepository.add(client);
-    }
-
-    public void update(Client client) {
-        clientRepository.update(client);
-    }
-
-    public List<Client> findAll() {
-        return clientRepository.findAll();
-    }
-
-    public List<Client> sortByYearASC() {
-        return clientRepository.sortByYearASC();
-    }
-
-    public List<Client> sortByYearDESC() {
-        return clientRepository.sortByYearASC();
-    }
+    List<Client> sortByYearDESC();
 }
-
-

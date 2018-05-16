@@ -1,13 +1,18 @@
 package ru.itpark;
 
-import ru.itpark.domain.Client;
 import ru.itpark.repository.ClientRepository;
+import ru.itpark.repository.ClientRepositoryImpl;
 import ru.itpark.service.ClientService;
+import ru.itpark.service.ClientServiceImpl;
 
 public class Main {
     public static void main(String[] args) {
 
-        ClientRepository repository = new ClientRepository("jdbc:sqlite:db.sqlite3");
+//        ClientRepository repository = new ClientRepositoryImpl("jdbc:sqlite:db.sqlite3");
+
+        ClientService service = new ClientServiceImpl(
+                new ClientRepositoryImpl("jdbc:sqlite:db.sqlite3")
+        );
 
 //        repository.add(
 //                new Client(
@@ -71,8 +76,8 @@ public class Main {
 
 
 //        System.out.println(repository.sortByYearASC());
-        System.out.println(repository.sortByYearDESC());
-        System.out.println(repository.findAll());
+        System.out.println(service.sortByYearDESC());
+        System.out.println(service.findAll());
 
 
 
