@@ -82,19 +82,25 @@ public class Main {
 //        System.out.println(repository.sortByYearDESC());
 //        System.out.println(repository.findAll());
 
-        buyRepository.add(
-                new Buy(
-                        2,
-                        4,
-                        100,
-                        "default",
-                        100
+//        buyRepository.add(
+//                new Buy(
+//                        1,
+//                        2,
+//                        999,
+//                        "default"
+//                )
+//        );
 
-                )
-        );
+//        buyRepository.add(
+//                new Buy(
+//                        3,
+//                        4,
+//                        200,
+//                        "default"
+//                )
+//        );
 
-
-
+        System.out.println(buyRepository.findByClientId(4));
 
     }
 }

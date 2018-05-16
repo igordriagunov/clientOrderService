@@ -157,7 +157,4 @@ public class ClientRepositoryImpl  {
         }
         return clients;
     }
-
-//     TODO: Buy repository
-
 }

@@ -3,10 +3,14 @@ package ru.itpark.repository;
 import ru.itpark.domain.Buy;
 
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class BuyRepository {
 
     private String url;
+    private static int total;
+
 
     public BuyRepository(String url) {
         this.url = url;
@@ -25,7 +29,6 @@ public class BuyRepository {
                         "orderDate TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL  ,\n" +
                         "orderSum INTEGER NOT NULL ,\n" +
                         "status TEXT NOT NULL,\n" +
-                        "total INTEGER CHECK (total >=0) DEFAULT 0," +
                         "FOREIGN KEY (clientId) REFERENCES clients(id)\n" +
                         ");");
             }
@@ -40,14 +43,13 @@ public class BuyRepository {
         try (Connection connection = DriverManager.getConnection(url)) {
             try (PreparedStatement statement =
                          connection.prepareStatement(
-                                 "INSERT INTO buy(id, clientId, orderDate, orderSum, status, total) VALUES (?,?,?,?,?,?);")) {
+                                 "INSERT INTO buy(id, clientId, orderDate, orderSum, status) VALUES (?,?,?,?,?);")) {
 
                 statement.setInt(1, buy.getId());
-                statement.setInt(2,buy.getClientId());
+                statement.setInt(2, buy.getClientId());
                 statement.setString(3, buy.getOrderDate());
                 statement.setInt(4, buy.getOrderSum());
                 statement.setString(5, buy.getStatus());
-                statement.setInt(6, buy.getTotal());
 
                 statement.executeUpdate();
             }
@@ -56,6 +58,62 @@ public class BuyRepository {
             e.printStackTrace();
         }
 
+    }
+
+//    public List<Buy> findTotalByClientId(int clientId) {
+//        List<Buy> list = new ArrayList<>();
+//
+//        try (Connection connection = DriverManager.getConnection(url)) {
+//            try (PreparedStatement statement =
+//                         connection.prepareStatement(
+//                                 "SELECT orderSum FROM buy WHERE id=?")) {
+//                statement.setInt(1, clientId);
+//                ResultSet resultSet = statement.executeQuery();
+//
+//                while (resultSet.next()) {
+//
+//                    list.add(
+//                            new Buy(
+//                                    resultSet.getInt("id"),
+//                                    resultSet.getInt("clientId"),
+//                                    resultSet.getInt("orderSum"),
+//                                    resultSet.getString("status")
+//                            )
+//                    );
+//                }
+//
+//            }
+//        } catch (SQLException e) {
+//            e.printStackTrace();
+//        }
+//        return list;
+//    }
+
+    public List<Buy> findByClientId(int clientId) {
+        List<Buy> list = new ArrayList<>();
+        try (Connection connection = DriverManager.getConnection(url)) {
+            try (PreparedStatement statement =
+                         connection.prepareStatement(
+                                 "SELECT id, clientId, orderSum, status FROM buy WHERE clientId=?")) {
+                statement.setInt(1, clientId);
+
+                ResultSet resultSet = statement.executeQuery();
+
+                while (resultSet.next()) {
+                    list.add(
+                            new Buy(
+                                    resultSet.getInt("id"),
+                                    resultSet.getInt("clientId"),
+                                    resultSet.getInt("orderSum"),
+                                    resultSet.getString("status")
+                            )
+                    );
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return list;
     }
 }
 
