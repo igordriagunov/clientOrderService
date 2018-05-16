@@ -9,8 +9,6 @@ import java.util.List;
 public class BuyRepository {
 
     private String url;
-    private static int total;
-
 
     public BuyRepository(String url) {
         this.url = url;
@@ -57,37 +55,7 @@ public class BuyRepository {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-
     }
-
-//    public List<Buy> findTotalByClientId(int clientId) {
-//        List<Buy> list = new ArrayList<>();
-//
-//        try (Connection connection = DriverManager.getConnection(url)) {
-//            try (PreparedStatement statement =
-//                         connection.prepareStatement(
-//                                 "SELECT orderSum FROM buy WHERE id=?")) {
-//                statement.setInt(1, clientId);
-//                ResultSet resultSet = statement.executeQuery();
-//
-//                while (resultSet.next()) {
-//
-//                    list.add(
-//                            new Buy(
-//                                    resultSet.getInt("id"),
-//                                    resultSet.getInt("clientId"),
-//                                    resultSet.getInt("orderSum"),
-//                                    resultSet.getString("status")
-//                            )
-//                    );
-//                }
-//
-//            }
-//        } catch (SQLException e) {
-//            e.printStackTrace();
-//        }
-//        return list;
-//    }
 
     public List<Buy> findByClientId(int clientId) {
         List<Buy> list = new ArrayList<>();
@@ -115,5 +83,7 @@ public class BuyRepository {
         }
         return list;
     }
+
+
 }
 

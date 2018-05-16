@@ -5,6 +5,7 @@ import ru.itpark.domain.Client;
 import ru.itpark.repository.ClientRepository;
 import ru.itpark.repository.BuyRepository;
 
+import java.util.Iterator;
 import java.util.List;
 
 
@@ -42,17 +43,16 @@ public class ClientServiceImpl implements ClientService {
     public List<Client> sortByYearDESC() {
         return clientRepository.sortByYearASC();
     }
-    
+
     public void add(Buy buy) {
         buyRepository.add(buy);
     }
 
-    public List<Buy> findByClientId(int id) {
-        return buyRepository.findByClientId(id);
+    public List<Buy> findByClientId(int clientId) {
+        return buyRepository.findByClientId(clientId);
     }
-
-//    public int total()
-
 }
+
+
 
 
