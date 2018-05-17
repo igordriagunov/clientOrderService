@@ -5,7 +5,6 @@ import ru.itpark.domain.Client;
 import ru.itpark.repository.ClientRepository;
 import ru.itpark.repository.BuyRepository;
 
-import java.util.Iterator;
 import java.util.List;
 
 
@@ -48,9 +47,11 @@ public class ClientServiceImpl implements ClientService {
         buyRepository.add(buy);
     }
 
-    public List<Buy> findByClientId(int clientId) {
-        return buyRepository.findByClientId(clientId);
+    public int findByClientId(int clientId) {
+        return buyRepository.findTotalByClientId(clientId);
     }
+
+
 }
 
 

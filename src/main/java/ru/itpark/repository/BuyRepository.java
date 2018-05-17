@@ -57,8 +57,8 @@ public class BuyRepository {
         }
     }
 
-    public List<Buy> findByClientId(int clientId) {
-        List<Buy> list = new ArrayList<>();
+    public int findTotalByClientId(int clientId) {
+        List<Integer> list = new ArrayList<>();
         try (Connection connection = DriverManager.getConnection(url)) {
             try (PreparedStatement statement =
                          connection.prepareStatement(
@@ -69,19 +69,21 @@ public class BuyRepository {
 
                 while (resultSet.next()) {
                     list.add(
-                            new Buy(
-                                    resultSet.getInt("id"),
-                                    resultSet.getInt("clientId"),
-                                    resultSet.getInt("orderSum"),
-                                    resultSet.getString("status")
-                            )
+                            resultSet.getInt("orderSum")
                     );
                 }
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return list;
+        int total = 0;
+
+        for (int buy : list) {
+
+            total += buy;
+        }
+        return total;
+
     }
 
 

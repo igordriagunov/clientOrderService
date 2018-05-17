@@ -1,11 +1,7 @@
 package ru.itpark;
 
-import ru.itpark.domain.Buy;
 import ru.itpark.repository.BuyRepository;
-import ru.itpark.repository.ClientRepository;
 import ru.itpark.repository.ClientRepositoryImpl;
-import ru.itpark.service.ClientService;
-import ru.itpark.service.ClientServiceImpl;
 
 public class Main {
     public static void main(String[] args) {
@@ -100,7 +96,17 @@ public class Main {
 //                )
 //        );
 
-        System.out.println(buyRepository.findByClientId(4));
+//        buyRepository.add(
+//                new Buy(
+//                        4,
+//                        2,
+//                        101,
+//                        "default"
+//                )
+//        );
+
+        System.out.println(buyRepository.findTotalByClientId(4));
+        System.out.println(buyRepository.findTotalByClientId(2));
 
     }
 }
