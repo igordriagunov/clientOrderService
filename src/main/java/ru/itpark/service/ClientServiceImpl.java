@@ -55,6 +55,10 @@ public class ClientServiceImpl implements ClientService {
         return buyRepository.clientStatus(clientId);
     }
 
+    public List<Integer> sortClientByTotal() {
+        return buyRepository.sortClientByTotal();
+    }
+
 
 }
 

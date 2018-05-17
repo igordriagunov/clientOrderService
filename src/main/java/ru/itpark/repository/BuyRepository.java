@@ -77,7 +77,7 @@ public class BuyRepository {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-//        int total = 0;
+
         BuyRepository.total = 0;
 
         for (int buy : list) {
@@ -131,6 +131,30 @@ public class BuyRepository {
             }
         }
         return total;
+    }
+
+    public List<Integer> sortClientByTotal() {
+        List<Integer> list = new ArrayList<>();
+        try (Connection connection = DriverManager.getConnection(url)) {
+            try (Statement statement = connection.createStatement()) {
+
+                ResultSet resultSet =
+                        statement.executeQuery(
+                                "SELECT clientId, SUM(orderSum) AS orderSum FROM buy GROUP BY clientId");
+
+                while (resultSet.next()) {
+                    list.add(
+                            resultSet.getInt("clientId"),
+                            resultSet.getInt("orderSum")
+                    );
+                }
+
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return list;
     }
 }
 

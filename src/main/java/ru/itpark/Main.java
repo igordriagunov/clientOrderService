@@ -1,6 +1,7 @@
 package ru.itpark;
 
 import ru.itpark.domain.Buy;
+import ru.itpark.domain.Client;
 import ru.itpark.repository.BuyRepository;
 import ru.itpark.repository.ClientRepositoryImpl;
 
@@ -90,9 +91,9 @@ public class Main {
 
 //        buyRepository.add(
 //                new Buy(
-//                        3,
-//                        4,
-//                        200
+//                        5,
+//                        1,
+//                        500
 //                )
 //        );
 
@@ -105,8 +106,10 @@ public class Main {
 //        );
 
 //        System.out.println(buyRepository.findTotalByClientId(4));
-        System.out.println(buyRepository.findTotalByClientId(3));
-        buyRepository.clientStatus(3);
+//        System.out.println(buyRepository.findTotalByClientId(1));
+//        buyRepository.clientStatus(1);
+
+        System.out.println(buyRepository.sortClientByTotal());
 
     }
 }
