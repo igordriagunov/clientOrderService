@@ -8,14 +8,13 @@ public class Buy {
     private int clientId;
     private final String orderDate = new java.util.Date().toString();
     private int orderSum;
-    private String status;
 
 
-    public Buy(int id, int clientId, int orderSum, String status) {
+    public Buy(int id, int clientId, int orderSum) {
         this.id = id;
         this.clientId = clientId;
         this.orderSum = orderSum;
-        this.status = status;
+
     }
 
     public int getId() {
@@ -46,14 +45,6 @@ public class Buy {
         this.orderSum = orderSum;
     }
 
-    public String getStatus() {
-        return status;
-    }
-
-    public void setStatus(String status) {
-        this.status = status;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -62,14 +53,13 @@ public class Buy {
         return id == buy.id &&
                 clientId == buy.clientId &&
                 orderSum == buy.orderSum &&
-                Objects.equals(orderDate, buy.orderDate) &&
-                Objects.equals(status, buy.status);
+                Objects.equals(orderDate, buy.orderDate);
     }
 
     @Override
     public int hashCode() {
 
-        return Objects.hash(id, clientId, orderDate, orderSum, status);
+        return Objects.hash(id, clientId, orderDate, orderSum);
     }
 
     @Override
@@ -79,7 +69,6 @@ public class Buy {
                 ", clientId=" + clientId +
                 ", orderDate='" + orderDate + '\'' +
                 ", orderSum=" + orderSum +
-                ", status='" + status + '\'' +
                 '}';
     }
 }
