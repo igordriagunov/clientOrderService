@@ -133,19 +133,22 @@ public class BuyRepository {
         return total;
     }
 
-    public List<Integer> sortClientByTotal() {
-        List<Integer> list = new ArrayList<>();
+    public List<Buy> sortClientByTotal() {
+        List<Buy> list = new ArrayList<>();
         try (Connection connection = DriverManager.getConnection(url)) {
             try (Statement statement = connection.createStatement()) {
 
                 ResultSet resultSet =
                         statement.executeQuery(
-                                "SELECT clientId, SUM(orderSum) AS orderSum FROM buy GROUP BY clientId");
+                                "SELECT id, clientId, SUM(orderSum) AS orderSum FROM buy GROUP BY clientId");
 
                 while (resultSet.next()) {
                     list.add(
-                            resultSet.getInt("clientId"),
-                            resultSet.getInt("orderSum")
+                            new Buy(
+                                    resultSet.getInt("id"),
+                                    resultSet.getInt("clientId"),
+                                    resultSet.getInt("orderSum")
+                            )
                     );
                 }
 
