@@ -109,7 +109,7 @@ public class Main {
 //        System.out.println(buyRepository.findTotalByClientId(1));
 //        buyRepository.clientStatus(1);
 
-        System.out.println(buyRepository.sortClientByTotal());
-
+//        System.out.println(buyRepository.sortClientByTotal());
+        System.out.println(buyRepository.findTotalByClientId(3));
     }
 }

@@ -1,7 +1,6 @@
 package ru.itpark.repository;
 
 import ru.itpark.domain.Buy;
-import ru.itpark.domain.Client;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -58,19 +57,23 @@ public class BuyRepository {
         }
     }
 
-    public int findTotalByClientId(int clientId) {
-        List<Integer> list = new ArrayList<>();
+    public List<Buy> findTotalByClientId(int clientId) {
+        List<Buy> list = new ArrayList<>();
         try (Connection connection = DriverManager.getConnection(url)) {
             try (PreparedStatement statement =
                          connection.prepareStatement(
-                                 "SELECT id, clientId, orderSum FROM buy WHERE clientId=?")) {
+                                 "SELECT id, clientId, SUM(orderSum) AS orderSum FROM buy WHERE clientId=? ORDER BY orderSum;")) {
                 statement.setInt(1, clientId);
 
                 ResultSet resultSet = statement.executeQuery();
 
                 while (resultSet.next()) {
                     list.add(
+                            new Buy(
+                            resultSet.getInt("id"),
+                            resultSet.getInt("clientId"),
                             resultSet.getInt("orderSum")
+                            )
                     );
                 }
             }
@@ -78,13 +81,13 @@ public class BuyRepository {
             e.printStackTrace();
         }
 
-        BuyRepository.total = 0;
-
-        for (int buy : list) {
-
-            total += buy;
-        }
-        return total;
+//        BuyRepository.total = 0;
+//
+//        for (int buy : list) {
+//
+//            total += buy;
+//        }
+        return list;
 
     }
 
@@ -140,7 +143,7 @@ public class BuyRepository {
 
                 ResultSet resultSet =
                         statement.executeQuery(
-                                "SELECT id, clientId, SUM(orderSum) AS orderSum FROM buy GROUP BY clientId");
+                                "SELECT id, clientId, SUM(orderSum) AS orderSum FROM buy GROUP BY clientId ORDER BY orderSum DESC");
 
                 while (resultSet.next()) {
                     list.add(

@@ -47,7 +47,7 @@ public class ClientServiceImpl implements ClientService {
         buyRepository.add(buy);
     }
 
-    public int findByClientId(int clientId) {
+    public List<Buy> findByClientId(int clientId) {
         return buyRepository.findTotalByClientId(clientId);
     }
 
