@@ -8,14 +8,14 @@ public class Client {
     private String name;
     private int year;
     private String phoneNumber;
-    private String eMail;
+    private String email;
 
-    public Client(int id, String name, int year, String phoneNumber, String eMail) {
+    public Client(int id, String name, int year, String phoneNumber, String email) {
         this.id = id;
         this.name = name;
         this.year = year;
         this.phoneNumber = phoneNumber;
-        this.eMail = eMail;
+        this.email = email;
     }
 
     public int getId() {
@@ -50,12 +50,12 @@ public class Client {
         this.phoneNumber = phoneNumber;
     }
 
-    public String geteMail() {
-        return eMail;
+    public String getEmail() {
+        return email;
     }
 
-    public void seteMail(String eMail) {
-        this.eMail = eMail;
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     @Override
@@ -67,13 +67,13 @@ public class Client {
                 year == client.year &&
                 Objects.equals(name, client.name) &&
                 Objects.equals(phoneNumber, client.phoneNumber) &&
-                Objects.equals(eMail, client.eMail);
+                Objects.equals(email, client.email);
     }
 
     @Override
     public int hashCode() {
 
-        return Objects.hash(id, name, year, phoneNumber, eMail);
+        return Objects.hash(id, name, year, phoneNumber, email);
     }
 
     @Override
@@ -83,7 +83,7 @@ public class Client {
                 ", name='" + name + '\'' +
                 ", year=" + year +
                 ", phoneNumber='" + phoneNumber + '\'' +
-                ", eMail='" + eMail + '\'' +
+                ", email='" + email + '\'' +
                 '}';
     }
 }

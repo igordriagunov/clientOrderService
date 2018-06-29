@@ -2,18 +2,19 @@ package ru.itpark.service;
 
 import ru.itpark.domain.Buy;
 import ru.itpark.domain.Client;
-import ru.itpark.repository.ClientRepository;
+
 import ru.itpark.repository.BuyRepository;
+import ru.itpark.repository.ClientRepositoryImpl;
 
 import java.util.List;
 
 
 public class ClientServiceImpl implements ClientService {
 
-    private final ClientRepository clientRepository;
+    private final ClientRepositoryImpl clientRepository;
     private final BuyRepository buyRepository;
 
-    public ClientServiceImpl(ClientRepository clientRepository, BuyRepository buyRepository) {
+    public ClientServiceImpl(ClientRepositoryImpl clientRepository, BuyRepository buyRepository) {
         this.clientRepository = clientRepository;
         this.buyRepository = buyRepository;
     }

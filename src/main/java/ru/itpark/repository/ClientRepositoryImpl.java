@@ -10,43 +10,46 @@ import java.util.List;
 public class ClientRepositoryImpl  {
 
     private String url;
+    private String user;
+    private String password;
 
-    public ClientRepositoryImpl(String url) {
+
+    public ClientRepositoryImpl(String url, String user, String password) {
         this.url = url;
-        clientInit();
-//        orderInit();
+        this.user = user;
+        this.password = password;
     }
 
-    public void clientInit() {
-
-        try (Connection connection = DriverManager.getConnection(url)) {
-            try (Statement statement =
-                         connection.createStatement()) {
-
-                statement.execute("CREATE TABLE IF NOT EXISTS clients (\n" +
-                        "id INTEGER PRIMARY KEY AUTOINCREMENT ,\n" +
-                        "name TEXT NOT NULL ,\n" +
-                        "year INTEGER NOT NULL ,\n" +
-                        "phoneNumber TEXT NOT NULL ,\n" +
-                        "eMail TEXT NOT NULL\n" +
-                        ");");
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
+//    public void clientInit() {
+//
+//        try (Connection connection = DriverManager.getConnection(url,user,password)) {
+//            try (Statement statement =
+//                         connection.createStatement()) {
+//
+//                statement.execute("CREATE TABLE IF NOT EXISTS clients (\n" +
+//                        "id INTEGER PRIMARY KEY AUTOINCREMENT ,\n" +
+//                        "name TEXT NOT NULL ,\n" +
+//                        "year INTEGER NOT NULL ,\n" +
+//                        "phoneNumber TEXT NOT NULL ,\n" +
+//                        "eMail TEXT NOT NULL\n" +
+//                        ");");
+//            }
+//        } catch (SQLException e) {
+//            e.printStackTrace();
+//        }
+//    }
 
 
     public void add(Client client) {
-        try (Connection connection = DriverManager.getConnection(url)) {
+        try (Connection connection = DriverManager.getConnection(url,user,password)) {
             try (PreparedStatement statement = connection.prepareStatement(
-                    "INSERT INTO clients(id, name, year, phoneNumber, eMail) VALUES (?,?,?,?,?);")) {
+                    "INSERT INTO clients(name, year, phoneNumber, email) VALUES (?,?,?,?);")) {
 
-                statement.setInt(1, client.getId());
-                statement.setString(2, client.getName());
-                statement.setInt(3, client.getYear());
-                statement.setString(4, client.getPhoneNumber());
-                statement.setString(5, client.geteMail());
+
+                statement.setString(1, client.getName());
+                statement.setInt(2, client.getYear());
+                statement.setString(3, client.getPhoneNumber());
+                statement.setString(4, client.getEmail());
 
                 statement.executeUpdate();
             }
@@ -56,12 +59,12 @@ public class ClientRepositoryImpl  {
     }
 
     public void update(Client client) {
-        try (Connection connection = DriverManager.getConnection(url)) {
+        try (Connection connection = DriverManager.getConnection(url,user,password)) {
             try (PreparedStatement statement = connection.prepareStatement("UPDATE clients SET name=?, year=?, phoneNumber=?, eMail=? WHERE id=?;")) {
                 statement.setString(1, client.getName());
                 statement.setInt(2, client.getYear());
                 statement.setString(3, client.getPhoneNumber());
-                statement.setString(4, client.geteMail());
+                statement.setString(4, client.getEmail());
                 statement.setInt(5, client.getId());
 
                 statement.executeUpdate();
@@ -75,7 +78,7 @@ public class ClientRepositoryImpl  {
     public List<Client> findAll() {
         List<Client> clients = new ArrayList<>();
 
-        try (Connection connection = DriverManager.getConnection(url)) {
+        try (Connection connection = DriverManager.getConnection(url,user,password)) {
             try (Statement statement = connection.createStatement()) {
 
                 ResultSet resultSet = statement.executeQuery("SELECT id, name, year, phoneNumber, eMail FROM clients");
@@ -99,10 +102,11 @@ public class ClientRepositoryImpl  {
         return clients;
     }
 
+
     public List<Client> sortByYearASC() {
         List<Client> clients = new ArrayList<>();
 
-        try (Connection connection = DriverManager.getConnection(url)) {
+        try (Connection connection = DriverManager.getConnection(url,user,password)) {
             try (Statement statement = connection.createStatement()) {
 
                 ResultSet resultSet =
@@ -132,7 +136,7 @@ public class ClientRepositoryImpl  {
     public List<Client> sortByYearDESC() {
         List<Client> clients = new ArrayList<>();
 
-        try (Connection connection = DriverManager.getConnection(url)) {
+        try (Connection connection = DriverManager.getConnection(url,user,password)) {
             try (Statement statement = connection.createStatement()) {
 
                 ResultSet resultSet =

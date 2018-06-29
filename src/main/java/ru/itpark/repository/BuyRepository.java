@@ -9,39 +9,42 @@ import java.util.List;
 public class BuyRepository {
 
     private String url;
+    private String user;
+    private String password;
     private static int total;
 
-    public BuyRepository(String url) {
+    public BuyRepository(String url, String user, String password) {
         this.url = url;
-        orderInit();
+        this.user = user;
+        this.password = password;
     }
 
-    private void orderInit() {
-
-        try (Connection connection = DriverManager.getConnection(url)) {
-            try (Statement statement =
-                         connection.createStatement()) {
-
-                statement.execute("CREATE TABLE IF NOT EXISTS buy (\n" +
-                        "id INTEGER PRIMARY KEY AUTOINCREMENT," +
-                        "clientId INTEGER NOT NULL ,\n" +
-                        "orderDate TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL  ,\n" +
-                        "orderSum INTEGER NOT NULL ,\n" +
-                        "FOREIGN KEY (clientId) REFERENCES clients(id)\n" +
-                        ");");
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
+//    private void orderInit() {
+//
+//        try (Connection connection = DriverManager.getConnection(url)) {
+//            try (Statement statement =
+//                         connection.createStatement()) {
+//
+//                statement.execute("CREATE TABLE IF NOT EXISTS buy (\n" +
+//                        "id INTEGER PRIMARY KEY AUTOINCREMENT," +
+//                        "clientId INTEGER NOT NULL ,\n" +
+//                        "orderDate TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL  ,\n" +
+//                        "orderSum INTEGER NOT NULL ,\n" +
+//                        "FOREIGN KEY (clientId) REFERENCES clients(id)\n" +
+//                        ");");
+//            }
+//        } catch (SQLException e) {
+//            e.printStackTrace();
+//        }
+//    }
 
 
     public void add(Buy buy) {
 
-        try (Connection connection = DriverManager.getConnection(url)) {
+        try (Connection connection = DriverManager.getConnection(url,user,password)) {
             try (PreparedStatement statement =
                          connection.prepareStatement(
-                                 "INSERT INTO buy(id, clientId, orderDate, orderSum) VALUES (?,?,?,?);")) {
+                                 "INSERT INTO orders (id, clientId, orderDate, orderSum) VALUES (?,?,?,?);")) {
 
                 statement.setInt(1, buy.getId());
                 statement.setInt(2, buy.getClientId());
@@ -59,10 +62,10 @@ public class BuyRepository {
 
     public List<Buy> findTotalByClientId(int clientId) {
         List<Buy> list = new ArrayList<>();
-        try (Connection connection = DriverManager.getConnection(url)) {
+        try (Connection connection = DriverManager.getConnection(url,user,password)) {
             try (PreparedStatement statement =
                          connection.prepareStatement(
-                                 "SELECT id, clientId, SUM(orderSum) AS orderSum FROM buy WHERE clientId=? ORDER BY orderSum;")) {
+                                 "SELECT id, clientId, SUM(orderSum) AS orderSum FROM orders WHERE clientId=? ORDER BY orderSum;")) {
                 statement.setInt(1, clientId);
 
                 ResultSet resultSet = statement.executeQuery();
@@ -95,10 +98,10 @@ public class BuyRepository {
     public int clientStatus(int clientId) {
 
         List<Integer> list = new ArrayList<>();
-        try (Connection connection = DriverManager.getConnection(url)) {
+        try (Connection connection = DriverManager.getConnection(url,user,password)) {
             try (PreparedStatement statement =
                          connection.prepareStatement(
-                                 "SELECT id, clientId, orderSum FROM buy WHERE clientId=?")) {
+                                 "SELECT id, clientId, orderSum FROM orders WHERE clientId=?")) {
                 statement.setInt(1, clientId);
 
                 ResultSet resultSet = statement.executeQuery();
@@ -138,12 +141,12 @@ public class BuyRepository {
 
     public List<Buy> sortClientByTotal() {
         List<Buy> list = new ArrayList<>();
-        try (Connection connection = DriverManager.getConnection(url)) {
+        try (Connection connection = DriverManager.getConnection(url,user,password)) {
             try (Statement statement = connection.createStatement()) {
 
                 ResultSet resultSet =
                         statement.executeQuery(
-                                "SELECT id, clientId, SUM(orderSum) AS orderSum FROM buy GROUP BY clientId ORDER BY orderSum DESC");
+                                "SELECT id, clientId, SUM(orderSum) AS orderSum FROM orders GROUP BY clientId ORDER BY orderSum DESC");
 
                 while (resultSet.next()) {
                     list.add(

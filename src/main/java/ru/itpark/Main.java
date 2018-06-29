@@ -1,30 +1,34 @@
 package ru.itpark;
 
-import ru.itpark.domain.Buy;
-import ru.itpark.domain.Client;
 import ru.itpark.repository.BuyRepository;
+
 import ru.itpark.repository.ClientRepositoryImpl;
+import ru.itpark.service.ClientServiceImpl;
 
 public class Main {
     public static void main(String[] args) {
 
-        ClientRepositoryImpl repository = new ClientRepositoryImpl("jdbc:sqlite:db.sqlite3");
-        BuyRepository buyRepository = new BuyRepository("jdbc:sqlite:db.sqlite3");
+        ClientRepositoryImpl clientRepository = new ClientRepositoryImpl(
+                "jdbc:mysql://localhost:3306/clientdb?verifyServerCertificate=false&useSSL=false&password=false&requireSSL=false&useLegacyDatetimeCode=false&amp&serverTimezone=UTC",
+                "root", "password");
 
-//        ClientService service = new ClientServiceImpl(
-//                new ClientRepositoryImpl("jdbc:sqlite:db.sqlite3")
-//        );
+        BuyRepository buyRepository = new BuyRepository(
+                "jdbc:mysql://localhost:3306/clientdb?verifyServerCertificate=false&useSSL=false&password=false&requireSSL=false&useLegacyDatetimeCode=false&amp&serverTimezone=UTC",
+                "root", "password");
+
+        ClientServiceImpl service = new ClientServiceImpl(clientRepository, buyRepository);
+
+        System.out.println(service.clientStatus(3));
 
 //        repository.add(
-//                new Client(
-//                        1,
+//                new Client(0,
 //                        "vasya",
 //                        1999,
 //                        "89993273682",
 //                        "qwer@mail.ru"
 //                )
 //        );
-//
+////
 //        repository.update(
 //                new Client(
 //                        1,
@@ -34,7 +38,7 @@ public class Main {
 //                        "rewq@gmail.com"
 //                )
 //        );
-//
+
 //        repository.update(
 //                new Client(
 //                        1,
@@ -110,6 +114,6 @@ public class Main {
 //        buyRepository.clientStatus(1);
 
 //        System.out.println(buyRepository.sortClientByTotal());
-        System.out.println(buyRepository.findTotalByClientId(3));
+//        System.out.println(buyRepository.findTotalByClientId(1));
     }
 }
