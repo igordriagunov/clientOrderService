@@ -1,12 +1,13 @@
 package ru.itpark.domain;
 
+import java.util.Date;
 import java.util.Objects;
 
 public class Buy {
 
     private int id;
     private int clientId;
-    private final String orderDate = new java.util.Date().toString();
+    private String orderDate = new java.util.Date().toString();
     private int orderSum;
 
 
@@ -35,6 +36,10 @@ public class Buy {
 
     public String getOrderDate() {
         return orderDate;
+    }
+
+    public void setOrderDate(String orderDate) {
+        this.orderDate = orderDate;
     }
 
     public int getOrderSum() {

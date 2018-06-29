@@ -52,7 +52,7 @@ public class BuyRepository {
                 statement.setInt(4, buy.getOrderSum());
 
 
-                statement.executeUpdate();
+                statement.execute();
             }
 
         } catch (SQLException e) {
@@ -121,16 +121,16 @@ public class BuyRepository {
 
             total += buy;
         }
-        if (total >= 0 && total <= 10_000) {
+        if (total >= 0 && total <= 30_000) {
             System.out.println("Status : Бронза");
         } else {
-            if (total >= 10_000 && total <= 30_000) {
+            if (total >= 30_000 && total <= 70_000) {
                 System.out.println("Status : Серебро");
             } else {
-                if (total >= 30_000 && total <= 70_000) {
+                if (total >= 70_000 && total <= 100_000) {
                     System.out.println("Status : Золото");
                 } else {
-                    if (total >= 70_000 && total <= 100_000) {
+                    if (total > 100_000) {
                         System.out.println("Status : Платина");
                     }
                 }

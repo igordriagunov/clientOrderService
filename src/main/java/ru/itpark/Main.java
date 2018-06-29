@@ -1,5 +1,6 @@
 package ru.itpark;
 
+import ru.itpark.domain.Buy;
 import ru.itpark.repository.BuyRepository;
 
 import ru.itpark.repository.ClientRepositoryImpl;
@@ -18,7 +19,7 @@ public class Main {
 
         ClientServiceImpl service = new ClientServiceImpl(clientRepository, buyRepository);
 
-        System.out.println(service.clientStatus(3));
+
 
 //        repository.add(
 //                new Client(0,
@@ -95,9 +96,9 @@ public class Main {
 
 //        buyRepository.add(
 //                new Buy(
-//                        5,
-//                        1,
-//                        500
+//                        0,
+//                        3,
+//                        200_000
 //                )
 //        );
 
