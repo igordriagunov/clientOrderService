@@ -4,20 +4,18 @@ import ru.itpark.domain.Buy;
 import ru.itpark.domain.Client;
 
 import ru.itpark.repository.BuyRepository;
-import ru.itpark.repository.ClientRepositoryImpl;
+import ru.itpark.repository.BuyRepositoryMySQLimpl;
+import ru.itpark.repository.ClientRepository;
+import ru.itpark.repository.ClientRepositoryMySQLimpl;
 
 import java.util.List;
 
 
 public class ClientServiceImpl implements ClientService {
 
-    private final ClientRepositoryImpl clientRepository;
-    private final BuyRepository buyRepository;
+    private final ClientRepository clientRepository = new ClientRepositoryMySQLimpl();
+    private final BuyRepository buyRepository = new BuyRepositoryMySQLimpl();
 
-    public ClientServiceImpl(ClientRepositoryImpl clientRepository, BuyRepository buyRepository) {
-        this.clientRepository = clientRepository;
-        this.buyRepository = buyRepository;
-    }
 
     @Override
     public void add(Client client) {
@@ -25,12 +23,18 @@ public class ClientServiceImpl implements ClientService {
     }
 
     @Override
+    public void removeByClientId(int clientId) {
+        clientRepository.removeByClientId(clientId);
+    }
+
+
+    @Override
     public void update(Client client) {
         clientRepository.update(client);
     }
 
     @Override
-    public List<Client> findAll() {
+    public List<Client> findAllClients() {
         return clientRepository.findAll();
     }
 
@@ -41,21 +45,25 @@ public class ClientServiceImpl implements ClientService {
 
     @Override
     public List<Client> sortByYearDESC() {
-        return clientRepository.sortByYearASC();
+        return clientRepository.sortByYearDESC();
     }
 
+    @Override
     public void add(Buy buy) {
         buyRepository.add(buy);
     }
 
-    public List<Buy> findByClientId(int clientId) {
+    @Override
+    public List<Buy> findTotalByClientId(int clientId) {
         return buyRepository.findTotalByClientId(clientId);
     }
 
+    @Override
     public int clientStatus(int clientId) {
         return buyRepository.clientStatus(clientId);
     }
 
+    @Override
     public List<Buy> sortClientByTotal() {
         return buyRepository.sortClientByTotal();
     }
