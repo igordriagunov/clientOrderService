@@ -23,7 +23,5 @@ public class Main {
 //                )
 //        );
 
-        service.removeByClientId(7);
-
     }
 }

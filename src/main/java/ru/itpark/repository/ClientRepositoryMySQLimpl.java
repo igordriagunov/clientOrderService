@@ -44,7 +44,7 @@ public class ClientRepositoryMySQLimpl implements ClientRepository {
                 statement.setString(1, client.getName());
                 statement.setInt(2, client.getYear());
                 statement.setString(3, client.getPhoneNumber());
-                statement.setString(4, client.getEmail());
+                statement.setString(4, client.geteMail());
 
                 statement.executeUpdate();
             }
@@ -77,7 +77,7 @@ public class ClientRepositoryMySQLimpl implements ClientRepository {
                 statement.setString(1, client.getName());
                 statement.setInt(2, client.getYear());
                 statement.setString(3, client.getPhoneNumber());
-                statement.setString(4, client.getEmail());
+                statement.setString(4, client.geteMail());
                 statement.setInt(5, client.getId());
 
                 statement.executeUpdate();
