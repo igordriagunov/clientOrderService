@@ -4,52 +4,38 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class BuyRepositoryMySQLimplTest {
-
-    private BuyRepository buyRepository = new BuyRepositoryMySQLimpl();
-    private final String url = "jdbc:mysql://localhost:3306/clientdb?verifyServerCertificate=false&useSSL=false&password=false&requireSSL=false&useLegacyDatetimeCode=false&amp&serverTimezone=UTC";
-    private final String user = "root";
-    private final String password = "password";
-    public static int value = 0;
-
-    public int findOrderSumById(int id) {
-        try (Connection connection = DriverManager.getConnection(url, user, password)) {
-            try (PreparedStatement statement = connection.prepareStatement(
-                    "SELECT orderSum FROM orders2 WHERE id=?")) {
-
-                statement.setInt(1, id);
-                ResultSet resultSet = statement.executeQuery();
-
-                if (resultSet.next()) {
-                    value = resultSet.getInt("orderSum");
-                }
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return value;
-    }
+class BuyRepositoryMySQLimplTest extends BuyRepoTestDetails {
 
     @Test
-    @DisplayName("check order by orderSum")
+    @DisplayName("check orderSum by id")
     void add() {
 
-        assertEquals(-999, findOrderSumById(8));
+        assertEquals(900, findOrderSumByIdTest(1));
 
     }
 
     @Test
+    @DisplayName("check find total by clientId")
     void findTotalByClientId() {
+
+        assertEquals(70000, findTotalByClientIdTest(3));
     }
 
-    @Test
-    void clientStatus() {
-    }
 
     @Test
+    @DisplayName("check sort clients by total")
     void sortClientByTotal() {
+
+        List<Integer>list = new ArrayList<>();
+        list.add(70000);
+        list.add(20999);
+        list.add(2400);
+
+        assertEquals(list, sortClientByTotalTest());
     }
 }

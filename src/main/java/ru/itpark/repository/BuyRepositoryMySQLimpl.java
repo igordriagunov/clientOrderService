@@ -11,7 +11,7 @@ public class BuyRepositoryMySQLimpl implements BuyRepository {
     private final String url = "jdbc:mysql://localhost:3306/clientdb?verifyServerCertificate=false&useSSL=false&password=false&requireSSL=false&useLegacyDatetimeCode=false&amp&serverTimezone=UTC";
     private final String user = "root";
     private final String password = "password";
-    private static int total;
+    private static int total = 0;
 
     @Override
     public void add(Buy buy) {
@@ -86,7 +86,6 @@ public class BuyRepositoryMySQLimpl implements BuyRepository {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        BuyRepositoryMySQLimpl.total = 0;
 
         for (int buy : list) {
 
@@ -143,7 +142,7 @@ public class BuyRepositoryMySQLimpl implements BuyRepository {
             try (Statement statement = connection.createStatement()) {
                 statement.execute("CREATE TABLE IF NOT EXISTS orders2 (\n" +
                         "id INTEGER PRIMARY KEY AUTOINCREMENT,\n" +
-                        "client_id integer references clients2(id),\n" +
+                        "clientId integer references clients2(id),\n" +
                         "orderDate TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL  ,\n" +
                         "orderSum INTEGER NOT NULL\n" +
                         ");\n"
