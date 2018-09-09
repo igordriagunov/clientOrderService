@@ -2,8 +2,8 @@ package ru.itpark.repository;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import ru.itpark.repository.Details.BuyRepoTestDetails;
 
-import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -33,6 +33,7 @@ class BuyRepositoryMySQLimplTest extends BuyRepoTestDetails {
 
         List<Integer>list = new ArrayList<>();
         list.add(70000);
+        list.add(27000);
         list.add(20999);
         list.add(2400);
 

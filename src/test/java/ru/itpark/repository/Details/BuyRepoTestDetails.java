@@ -1,6 +1,8 @@
-package ru.itpark.repository;
+package ru.itpark.repository.Details;
 
 import ru.itpark.domain.Buy;
+import ru.itpark.repository.BuyRepository;
+import ru.itpark.repository.BuyRepositoryMySQLimpl;
 
 import java.sql.*;
 import java.util.ArrayList;
