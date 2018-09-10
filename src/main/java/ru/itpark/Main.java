@@ -23,8 +23,6 @@ public class Main {
 //                )
 //        );
 
-        System.out.println(service.findTotalByClientId(17));
-        System.out.println(service.clientStatus(17));
-        System.out.println(service.sortClientByTotal());
+
     }
 }

@@ -141,7 +141,7 @@ public class BuyRepositoryMySQLimpl implements BuyRepository {
         try (Connection connection = DriverManager.getConnection(url, user, password)) {
             try (Statement statement = connection.createStatement()) {
                 statement.execute("CREATE TABLE IF NOT EXISTS orders2 (\n" +
-                        "id INTEGER PRIMARY KEY AUTOINCREMENT,\n" +
+                        "id INTEGER PRIMARY KEY AUTO_INCREMENT,\n" +
                         "clientId integer references clients2(id),\n" +
                         "orderDate TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL  ,\n" +
                         "orderSum INTEGER NOT NULL\n" +

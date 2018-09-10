@@ -4,19 +4,17 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import ru.itpark.repository.Details.BuyRepoTestDetails;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import static org.junit.jupiter.api.Assertions.*;
 
 class BuyRepositoryMySQLimplTest extends BuyRepoTestDetails {
 
+    private BuyRepository buyRepository = new BuyRepositoryMySQLimpl();
+
     @Test
-    @DisplayName("check orderSum by id")
+    @DisplayName("check order by id, order should be exists")
     void add() {
 
-        assertEquals(900, findOrderSumByIdTest(1));
-
+        assertEquals(expectedOrderById(), findOrderByIdTest(1));
     }
 
     @Test
@@ -24,6 +22,7 @@ class BuyRepositoryMySQLimplTest extends BuyRepoTestDetails {
     void findTotalByClientId() {
 
         assertEquals(70000, findTotalByClientIdTest(3));
+        assertEquals(expectedTotalByClientId(), buyRepository.findTotalByClientId(3));
     }
 
 
@@ -31,12 +30,6 @@ class BuyRepositoryMySQLimplTest extends BuyRepoTestDetails {
     @DisplayName("check sort clients by total")
     void sortClientByTotal() {
 
-        List<Integer>list = new ArrayList<>();
-        list.add(70000);
-        list.add(27000);
-        list.add(20999);
-        list.add(2400);
-
-        assertEquals(list, sortClientByTotalTest());
+        assertEquals(expectedSortClientByTotal(), sortClientByTotalTest());
     }
 }
