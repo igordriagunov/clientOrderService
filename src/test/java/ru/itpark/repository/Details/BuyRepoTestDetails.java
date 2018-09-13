@@ -16,31 +16,56 @@ public class BuyRepoTestDetails {
     private static int value = 0;
     private static int total = 0;
 
-    public List<Buy> expectedOrderById() {
+    protected List<Buy> expectedOrder() {
         List<Buy> list = new ArrayList<>();
 
         list.add(
-                new Buy(
-                        1,
-                        1,
-                        900
+                new Buy(12,
+                        3,
+                        14000
                 )
         );
 
         return list;
     }
 
-    public List<Integer> expectedSortClientByTotal() {
-        List<Integer> list = new ArrayList<>();
-        list.add(70000);
-        list.add(27000);
-        list.add(20999);
-        list.add(2400);
+    protected List<Buy> expectedSortClientByTotal() {
+        List<Buy> list = new ArrayList<>();
+        list.add(
+                new Buy(10,
+                        3,
+                        70000)
+        );
+
+        list.add(
+                new Buy(
+                        15,
+                        17,
+                        36999
+                )
+        );
+
+        list.add(
+                new Buy(
+                        5,
+                        2,
+                        20999
+                )
+        );
+
+        list.add(
+                new
+                        Buy(
+                        1,
+                        1,
+                        2400
+                )
+        );
 
         return list;
     }
 
-    public List<Buy> expectedTotalByClientId() {
+    protected List<Buy> expectedTotalByClientId() {
         List<Buy> list = new ArrayList<>();
 
         list.add(
@@ -54,7 +79,7 @@ public class BuyRepoTestDetails {
         return list;
     }
 
-    public List<Buy> findOrderByIdTest(int id) {
+    protected List<Buy> findOrderByIdTest(int id) {
         List<Buy> list = new ArrayList<>();
         try (Connection connection = DriverManager.getConnection(url, user, password)) {
             try (PreparedStatement statement = connection.prepareStatement(
@@ -80,7 +105,7 @@ public class BuyRepoTestDetails {
         return list;
     }
 
-    public int findTotalByClientIdTest(int clientId) {
+    protected int findTotalByClientIdTest(int clientId) {
         try (Connection connection = DriverManager.getConnection(url, user, password)) {
             try (PreparedStatement statement =
                          connection.prepareStatement(
@@ -102,7 +127,7 @@ public class BuyRepoTestDetails {
     }
 
 
-    public List<Integer> sortClientByTotalTest() {
+    protected List<Integer> sortClientByTotalTest() {
         List<Integer> list = new ArrayList<>();
         try (Connection connection = DriverManager.getConnection(url, user, password)) {
             try (Statement statement = connection.createStatement()) {

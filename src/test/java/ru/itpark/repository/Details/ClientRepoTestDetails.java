@@ -17,7 +17,7 @@ public class ClientRepoTestDetails {
     private static int num;
 
 
-    public int findClientIdByPhoneNumber(String phoneNumber) {
+    protected int findClientIdByPhoneNumber(String phoneNumber) {
         try (Connection connection = DriverManager.getConnection(url, user, password)) {
             try (PreparedStatement statement = connection.prepareStatement(
                     "SELECT id FROM clients2 WHERE phoneNumber=?"
@@ -37,7 +37,7 @@ public class ClientRepoTestDetails {
         return num;
     }
 
-    public List<Client> findClientById(int id) {
+    protected List<Client> findClientById(int id) {
         List<Client> list = new ArrayList<>();
         try (Connection connection = DriverManager.getConnection(url, user, password)) {
             try (PreparedStatement statement = connection.prepareStatement(
@@ -67,7 +67,7 @@ public class ClientRepoTestDetails {
         return list;
     }
 
-    public List<Client> expectedClient() {
+    protected List<Client> expectedClient() {
         List<Client> list = new ArrayList<>();
 
         list.add(
@@ -88,7 +88,7 @@ public class ClientRepoTestDetails {
 
     }
 
-    public List<Client> expectedSortClientsByYearASC() {
+    protected List<Client> expectedSortClientsByYearASC() {
         List<Client> list = new ArrayList<>();
 
         list.add(
@@ -134,7 +134,7 @@ public class ClientRepoTestDetails {
     }
 
 
-    public List<Client> expectedSortClientsByYearDESC() {
+    protected List<Client> expectedSortClientsByYearDESC() {
         List<Client> list = new ArrayList<>();
 
         list.add(
@@ -181,7 +181,7 @@ public class ClientRepoTestDetails {
     }
 
 
-    public List<Client> expectedFindAllClients() {
+    protected List<Client> expectedFindAllClients() {
 
         List<Client> list = new ArrayList<>();
         list.add(
@@ -222,34 +222,6 @@ public class ClientRepoTestDetails {
                         "ivan777@gmail.com"
                 )
         );
-
-        return list;
-    }
-
-    public List<Client> findAllClients() {
-        List<Client> list = new ArrayList<>();
-        try (Connection connection = DriverManager.getConnection(url, user, password)) {
-            try (Statement statement = connection.createStatement()) {
-
-                ResultSet resultSet = statement.executeQuery(
-                        "SELECT id, name, year, phoneNumber, eMail FROM clients2");
-
-                while (resultSet.next()) {
-
-                    list.add(
-                            new Client(
-                                    resultSet.getInt("id"),
-                                    resultSet.getString("name"),
-                                    resultSet.getInt("year"),
-                                    resultSet.getString("phoneNumber"),
-                                    resultSet.getString("eMail")
-                            )
-                    );
-                }
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
 
         return list;
     }

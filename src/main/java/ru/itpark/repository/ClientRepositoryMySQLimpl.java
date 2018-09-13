@@ -183,7 +183,7 @@ public class ClientRepositoryMySQLimpl implements ClientRepository {
         try (Connection connection = DriverManager.getConnection(url, user, password)) {
             try (Statement statement = connection.createStatement()) {
                 statement.execute("CREATE TABLE IF NOT EXISTS clients2 (\n" +
-                        "id INTEGER PRIMARY KEY AUTOINCREMENT,\n" +
+                        "id INTEGER PRIMARY KEY AUTO_INCREMENT,\n" +
                         "name TEXT NOT NULL ,\n" +
                         "year INTEGER NOT NULL ,\n" +
                         "phoneNumber INTEGER NOT NULL ,\n" +

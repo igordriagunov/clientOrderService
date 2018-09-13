@@ -11,10 +11,10 @@ class BuyRepositoryMySQLimplTest extends BuyRepoTestDetails {
     private BuyRepository buyRepository = new BuyRepositoryMySQLimpl();
 
     @Test
-    @DisplayName("check order by id, order should be exists")
+    @DisplayName("check find order by id, order should be exists")
     void add() {
 
-        assertEquals(expectedOrderById(), findOrderByIdTest(1));
+        assertEquals(expectedOrder(), findOrderByIdTest(12));
     }
 
     @Test
@@ -30,6 +30,6 @@ class BuyRepositoryMySQLimplTest extends BuyRepoTestDetails {
     @DisplayName("check sort clients by total")
     void sortClientByTotal() {
 
-        assertEquals(expectedSortClientByTotal(), sortClientByTotalTest());
+        assertEquals(expectedSortClientByTotal(), buyRepository.sortClientByTotal());
     }
 }

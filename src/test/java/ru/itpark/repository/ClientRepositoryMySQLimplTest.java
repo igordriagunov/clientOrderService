@@ -22,15 +22,15 @@ class ClientRepositoryMySQLimplTest extends ClientRepoTestDetails {
     @DisplayName("check find all clients")
     void findAll() {
 
-        assertEquals(expectedFindAllClients(), findAllClients());
+        assertEquals(expectedFindAllClients(), clientRepository.findAll());
     }
 
     @Test
     @DisplayName("check remove client by id")
     void removeByClientId() {
 
-        // check client exists
-        //TODO: check removed client
+
+        //TODO: check client exists --> check removed client
 
         assertEquals(2, findClientIdByPhoneNumber("+79503214569"));
 //        assertEquals(removedClient(), clientRepository.removeByClientId(2));
@@ -38,12 +38,14 @@ class ClientRepositoryMySQLimplTest extends ClientRepoTestDetails {
 
 
     @Test
+    @DisplayName("check sort clients by year, order by ASC")
     void sortByYearASC() {
 
         assertEquals(expectedSortClientsByYearASC(), clientRepository.sortByYearASC());
     }
 
     @Test
+    @DisplayName("check sort clients by year, order by DESC")
     void sortByYearDESC() {
 
         assertEquals(expectedSortClientsByYearDESC(), clientRepository.sortByYearDESC());
